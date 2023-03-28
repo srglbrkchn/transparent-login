@@ -1,0 +1,35 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Varela Round", sans-serif;
+}
+
+:root {
+  --primary-light-hsl: 100, 100%, 100%;
+  --primary-hsl: 100, 100%, 50%;
+  --primary-dark-hsl: 100, 100%, 6%;
+}
+
+body {
+  margin: 0;
+}
+
+.full-screen-container {
+  background-image: url("nature-background.jpg");
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: hsl(var(--primary-light-hsl), 0.5);
+}
+
+.login-title {
+  margin: 0;
+}
