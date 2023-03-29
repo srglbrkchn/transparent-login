@@ -17,6 +17,11 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  text-align: center;
+}
+
 .full-screen-container {
   background-image: url("nature-background.jpg");
   height: 100vh;
