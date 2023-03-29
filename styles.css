@@ -9,8 +9,8 @@
   --primary-light-hsl: 100, 100%, 100%;
   --primary-hsl: 100, 100%, 50%;
   --primary-dark-hsl: 100, 100%, 6%;
-  --success-hsl: 80, 50%, 50%;
-  --error-hsl: 30, 60%, 50%;
+  --success-hsl: 80, 30%, 40%;
+  --error-hsl: 30, 70%, 35%;
 }
 
 body {
@@ -86,4 +86,39 @@ body {
 
 .input-group input:focus {
   box-shadow: 0 0 3px 2px hsl(var(--primary-light-hsl));
+}
+
+.input-group .msg {
+  display: none;
+  font-size: 0.75rem;
+}
+
+.input-group.success .msg,
+.input-group.error .msg {
+  display: block;
+}
+
+.input-group.success .msg {
+  color: hsl(var(--success-hsl));
+}
+
+.input-group.error .msg {
+  color: hsl(var(--error-hsl));
+}
+
+.login-button {
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  color: rgb(95, 110, 99);
+  background-color: hsl(var(--success-hsl), 0.2);
+  border: solid 1.5px hsl(var(--success-hsl));
+  border-radius: 0.25rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.login-button:hover,
+.login-button:focus {
+  background-color: hsl(var(--success-hsl), 0.35);
 }
