@@ -8,6 +8,7 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const initializePassport = require("./passport-config");
+const methodOverride = require("method-override");
 
 initializePassport(
   passport,
@@ -20,6 +21,7 @@ const users = [];
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
+app.use(methodOverride("_method"));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -34,18 +36,19 @@ app.use(passport.session());
 app.set("view-engine", "ejs");
 
 // get route
-app.get("/", (req, res) => {
+app.get("/", checkAuthenticated, (req, res) => {
   res.render("index.ejs", { name: req.user.name });
 });
 
 // login get route
-app.get("/login", (req, res) => {
+app.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.ejs");
 });
 
 // login post route
 app.post(
   "/login",
+  checkNotAuthenticated,
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
@@ -54,12 +57,12 @@ app.post(
 );
 
 // register get route
-app.get("/register", (req, res) => {
+app.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register.ejs");
 });
 
 // register post route
-app.post("/register", async (req, res) => {
+app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
     const hashPassword = await bcrypt.hash(req.body.password, 10);
     users.push({
@@ -75,6 +78,31 @@ app.post("/register", async (req, res) => {
   }
   console.log(users);
 });
+
+app.delete("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
+  });
+});
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  } else {
+    next();
+  }
+}
 
 app.listen(3000, (req, res) => {
   console.log("The server is up and running!");

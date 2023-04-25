@@ -17,21 +17,9 @@
     <div class="full-screen-container">
       <div class="login-container">
         <h1 class="login-title">Welcome <%=name%></h1>
-        <!-- <form action="" class="form">
-          <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" />
-            <span class="msg">Valid email</span>
-          </div>
-
-          <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" />
-            <span class="msg">Incorrect password</span>
-          </div>
-
-          <button type="submit" class="login-button">Login</button>
-        </form> -->
+        <form action="/logout?_method=DELETE" method="POST" class="form">
+          <button type="submit" class="login-button">Log Out</button>
+        </form>
       </div>
     </div>
   </body>
